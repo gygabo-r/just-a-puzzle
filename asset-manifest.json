@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.073c9b0a.css",
-    "main.js": "/static/js/main.62fbfb3e.js",
-    "static/js/787.3303a42b.chunk.js": "/static/js/787.3303a42b.chunk.js",
-    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/index.html",
-    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
-    "main.62fbfb3e.js.map": "/static/js/main.62fbfb3e.js.map",
-    "787.3303a42b.chunk.js.map": "/static/js/787.3303a42b.chunk.js.map"
+    "main.css": "/just-a-puzzle/static/css/main.073c9b0a.css",
+    "main.js": "/just-a-puzzle/static/js/main.f3919867.js",
+    "static/js/787.3303a42b.chunk.js": "/just-a-puzzle/static/js/787.3303a42b.chunk.js",
+    "static/media/logo.svg": "/just-a-puzzle/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/just-a-puzzle/index.html",
+    "main.073c9b0a.css.map": "/just-a-puzzle/static/css/main.073c9b0a.css.map",
+    "main.f3919867.js.map": "/just-a-puzzle/static/js/main.f3919867.js.map",
+    "787.3303a42b.chunk.js.map": "/just-a-puzzle/static/js/787.3303a42b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.62fbfb3e.js"
+    "static/js/main.f3919867.js"
   ]
 }
