@@ -1,0 +1,20 @@
+.upload_button {
+    border: 1px solid red;
+    border-radius: 1rem ;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.upload_button:hover {
+    background-color: lightgrey;
+}
+
+.upload_label {
+    display: flex;
+    height: fit-content;
+}
+
+.centered {
+    align-items: center;
+    justify-content: center;
+}
