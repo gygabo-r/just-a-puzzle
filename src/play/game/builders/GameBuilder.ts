@@ -5,7 +5,6 @@ import * as d3 from 'd3';
 import { BaseType, Selection } from 'd3-selection';
 import { PieceLogic } from '../logic/PieceLogic';
 import { PieceVisual } from '../visual/PieceVisual';
-import { HintService } from '../../hint.service';
 import { BackgroundBrightnessService } from '../../background-brightness.service';
 
 export class GameBuilder {
@@ -19,11 +18,7 @@ export class GameBuilder {
     private gameLogic: GameLogic;
     public isGameFinished = false;
 
-    constructor(
-        private sourceImage: HTMLImageElement,
-        private hintService: HintService,
-        private brightnessService: BackgroundBrightnessService
-    ) {}
+    constructor(private sourceImage: HTMLImageElement, private brightnessService: BackgroundBrightnessService) {}
 
     public initialize(cutX: number, cutY: number): void {
         this.config.cutX = cutX;
@@ -66,7 +61,6 @@ export class GameBuilder {
             this.config,
             data.map((p) => p.logic)
         );
-        this.hintService.setPieces(data);
         this.createD3Parts(data);
     };
 
