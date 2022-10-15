@@ -1,20 +1,19 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import './CutSelection.css';
-
-type CutOption = {
-    x: number;
-    y: number;
-};
+import { CutOption } from './App';
 
 type Props = {
     image: string;
+    selectedCut: CutOption | undefined;
+    onCutChange: (c: CutOption) => void;
+    onCancel: () => void;
+    onStartPlay: () => void;
 };
 
 const cutArray = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const CutSelection: React.FC<Props> = (p) => {
-    const { image } = p;
-    const [selectedCut, setSelectedCut] = useState<CutOption | undefined>();
+    const { image, onCutChange, selectedCut, onStartPlay, onCancel } = p;
 
     const cuts: CutOption[] = useMemo(() => {
         const imgElement = new Image();
@@ -29,28 +28,32 @@ export const CutSelection: React.FC<Props> = (p) => {
 
             return lowerDiff < upperDiff ? { x: lowerCutX, y: cutY } : { x: upperCutX, y: cutY };
         });
-    }, []);
-
-    console.log(selectedCut);
+    }, [image]);
 
     return (
         <div className="cut-selection-container">
             <div className="image-container">
-                <img src={image} alt="selected image" />
+                <img src={image} alt="the selected one" />
             </div>
             <div className="cuts-container">
                 {cuts.map((cut) => (
-                    <label className="cut-label">
+                    <label className="cut-label" key={JSON.stringify(cut)}>
                         <input
                             type="radio"
                             name="cut-option"
                             id={`${cut.x} x ${cut.y}`}
                             checked={selectedCut?.x === cut.x && selectedCut?.y === cut.y}
-                            onChange={() => setSelectedCut(cut)}
+                            onChange={() => onCutChange(cut)}
                         />
                         {`${cut.x} x ${cut.y}`}
                     </label>
                 ))}
+            </div>
+            <div className="cut-actions">
+                <button onClick={onCancel}>Cancel</button>
+                <button onClick={onStartPlay} disabled={!selectedCut}>
+                    Start
+                </button>
             </div>
         </div>
     );
