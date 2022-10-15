@@ -5,16 +5,17 @@ import * as d3 from 'd3';
 import { BaseType, Selection } from 'd3-selection';
 import { PieceLogic } from '../logic/PieceLogic';
 import { PieceVisual } from '../visual/PieceVisual';
-import { GameHistoryService } from '../../game-history.service';
 import { HintService } from '../../hint.service';
 import { BackgroundBrightnessService } from '../../background-brightness.service';
 
 export class GameBuilder {
     private svgTargetId = 'play-area';
     private config: GameConfiguration = new GameConfiguration();
-    private resizedWidth: number;
-    private resizedHeight: number;
+    private resizedWidth: number = 0;
+    private resizedHeight: number = 0;
+    // @ts-ignore
     private resizedImage: HTMLImageElement;
+    // @ts-ignore
     private gameLogic: GameLogic;
     public isGameFinished = false;
 
@@ -31,7 +32,9 @@ export class GameBuilder {
     }
 
     public setViewHeight(): void {
+        // todo: will need to ref this
         const element = document.getElementById(this.svgTargetId);
+        // @ts-ignore
         const clientRect = element.getBoundingClientRect();
         this.config.playImageHeight = clientRect.height / 2;
         this.config.viewHeight = clientRect.height;
@@ -48,7 +51,7 @@ export class GameBuilder {
         const canvas = document.createElement('canvas');
         canvas.height = this.resizedHeight;
         canvas.width = this.resizedWidth;
-        const context = canvas.getContext('2d');
+        const context = canvas.getContext('2d') as CanvasRenderingContext2D;
         context.drawImage(this.sourceImage, 0, 0, this.resizedWidth, this.resizedHeight);
         this.resizedImage = new Image();
         this.resizedImage.src = canvas.toDataURL();
@@ -62,8 +65,7 @@ export class GameBuilder {
         const data = factory.createPieceVisuals();
         this.gameLogic = new GameLogic(
             this.config,
-            data.map((p) => p.logic),
-            this.gameHistoryService
+            data.map((p) => p.logic)
         );
         this.hintService.setPieces(data);
         this.createD3Parts(data);
@@ -74,7 +76,7 @@ export class GameBuilder {
             .drag()
             .on(
                 'drag',
-                createDragged(() => this.isGameFinished, this.gameHistoryService)
+                createDragged(() => this.isGameFinished)
             )
             .on('end', this.dragEnd);
 
@@ -129,13 +131,16 @@ export class GameBuilder {
     };
 }
 
-function createDragged(isGameFinished: () => boolean, gameHistoryService: GameHistoryService) {
+function createDragged(isGameFinished: () => boolean) {
     return function (piece: any) {
         d3.selectAll('circle').remove();
         const moveElement = (pl: PieceLogic) => {
             const el = d3.select(`#imi${pl.row}j${pl.column}`);
             moveToTop(el);
+            // todo: need to figure out what happened with d3.event
+            // @ts-ignore
             pl.x += d3.event.dx;
+            // @ts-ignore
             pl.y += d3.event.dy;
             el.attr('transform', 'translate(' + [pl.x, pl.y] + ')');
         };
@@ -148,7 +153,6 @@ function createDragged(isGameFinished: () => boolean, gameHistoryService: GameHi
 
         if (!piece.logic.isDragging && !isGameFinished()) {
             piece.logic.isDragging = true;
-            gameHistoryService.onDragStart();
         }
     };
 }
