@@ -21,7 +21,6 @@ export class GameBuilder {
 
     constructor(
         private sourceImage: HTMLImageElement,
-        private imageId: number,
         private hintService: HintService,
         private brightnessService: BackgroundBrightnessService
     ) {}
