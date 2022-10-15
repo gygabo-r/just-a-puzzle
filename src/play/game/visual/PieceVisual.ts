@@ -1,15 +1,15 @@
-import {Point} from '../helpers/Point';
-import {GameConfiguration} from '../helpers/GameConfiguration';
-import {RightPathMaker} from './RightPathMaker';
-import {LeftPathMaker} from './LeftPathMaker';
-import {TopPathMaker} from './TopPathMaker';
-import {BottomPathMaker} from './BottomPathMaker';
-import {PieceLogic} from '../logic/PieceLogic';
-import {IBottomPieceVisual} from './IBottomPieceVisual';
-import {ILeftPieceVisual} from './ILeftPieceVisual';
-import {IRightPieceVisual} from './IRightPieceVisual';
-import {ITopPieceVisual} from './ITopPieceVisual';
-import {ConnectLimits} from '../logic/ConnectLimits';
+import { Point } from '../helpers/Point';
+import { GameConfiguration } from '../helpers/GameConfiguration';
+import { RightPathMaker } from './RightPathMaker';
+import { LeftPathMaker } from './LeftPathMaker';
+import { TopPathMaker } from './TopPathMaker';
+import { BottomPathMaker } from './BottomPathMaker';
+import { PieceLogic } from '../logic/PieceLogic';
+import { IBottomPieceVisual } from './IBottomPieceVisual';
+import { ILeftPieceVisual } from './ILeftPieceVisual';
+import { IRightPieceVisual } from './IRightPieceVisual';
+import { ITopPieceVisual } from './ITopPieceVisual';
+import { ConnectLimits } from '../logic/ConnectLimits';
 
 export class PieceVisual implements IBottomPieceVisual, ILeftPieceVisual, IRightPieceVisual, ITopPieceVisual {
     private readonly outConst = 'out';
@@ -19,23 +19,16 @@ export class PieceVisual implements IBottomPieceVisual, ILeftPieceVisual, IRight
     public paddingLeft = 0;
     public paddingTop = 0;
 
-    // todo: seems unused
-    // public centeringLeftPadding: number;
-    // public centeringTopPadding: number;
+    public imageDataUrl: string = '';
 
-    public imageDataUrl: string;
-
-    private leftConnector: string;
-    private rightConnector: string;
-    private topConnector: string;
-    private bottomConnector: string;
+    private leftConnector: string = '';
+    private rightConnector: string = '';
+    private topConnector: string = '';
+    private bottomConnector: string = '';
 
     public logic: PieceLogic;
 
-    constructor(public row: number,
-                public column: number,
-                public config: GameConfiguration,
-                limits: ConnectLimits) {
+    constructor(public row: number, public column: number, public config: GameConfiguration, limits: ConnectLimits) {
         this.calculateConnectors();
         this.calculateSizePaddings();
         this.logic = new PieceLogic(row, column, config, limits);
@@ -57,34 +50,26 @@ export class PieceVisual implements IBottomPieceVisual, ILeftPieceVisual, IRight
             this.bottomConnector = this.outConst;
         }
 
-        if (this.row === 0)
-            this.topConnector = this.emptyConst;
+        if (this.row === 0) this.topConnector = this.emptyConst;
 
-        if (this.row === this.config.cutY - 1)
-            this.bottomConnector = this.emptyConst;
+        if (this.row === this.config.cutY - 1) this.bottomConnector = this.emptyConst;
 
-        if (this.column === 0)
-            this.leftConnector = this.emptyConst;
+        if (this.column === 0) this.leftConnector = this.emptyConst;
 
-        if (this.column === this.config.cutX - 1)
-            this.rightConnector = this.emptyConst;
+        if (this.column === this.config.cutX - 1) this.rightConnector = this.emptyConst;
     }
 
     public getWidth() {
         let x = 0;
-        if (this.isLeftOut())
-            x += 1;
-        if (this.isRightOut())
-            x += 1;
+        if (this.isLeftOut()) x += 1;
+        if (this.isRightOut()) x += 1;
         return this.config.blockWidth * 3 + x * this.config.blockHeight;
     }
 
     public getHeight() {
         let y = 3;
-        if (this.isTopOut())
-            y += 1;
-        if (this.isBottomOut())
-            y += 1;
+        if (this.isTopOut()) y += 1;
+        if (this.isBottomOut()) y += 1;
         return this.config.blockHeight * y;
     }
 
@@ -93,8 +78,7 @@ export class PieceVisual implements IBottomPieceVisual, ILeftPieceVisual, IRight
             this.paddingLeft = this.config.blockHeight;
         }
 
-        if (this.isTopOut())
-            this.paddingTop = this.config.blockHeight;
+        if (this.isTopOut()) this.paddingTop = this.config.blockHeight;
     }
 
     public isTopEmpty = () => this.topConnector === this.emptyConst;
@@ -122,12 +106,10 @@ export class PieceVisual implements IBottomPieceVisual, ILeftPieceVisual, IRight
     public isRightIn = () => this.rightConnector === this.inConst;
 
     public getStartingPointDifference(): Point {
-
         let x = 0;
         let y = 0;
 
-        if (this.isTopOut())
-            y = this.config.blockHeight;
+        if (this.isTopOut()) y = this.config.blockHeight;
 
         if (this.isLeftOut()) {
             x = this.config.blockHeight;
@@ -147,7 +129,7 @@ export class PieceVisual implements IBottomPieceVisual, ILeftPieceVisual, IRight
     }
 
     public getHintR(): number {
-     const smaller = Math.min(this.getWidth(), this.getHeight());
-     return smaller / 3;
+        const smaller = Math.min(this.getWidth(), this.getHeight());
+        return smaller / 3;
     }
 }
