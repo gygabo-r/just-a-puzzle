@@ -1,13 +1,13 @@
-import {IBlockConfiguration} from './IBlockConfiguration';
+import { IBlockConfiguration } from './IBlockConfiguration';
 
 export class GameConfiguration implements IBlockConfiguration {
-    public cutY: number;
-    public cutX: number;
+    public cutY: number = 0;
+    public cutX: number = 0;
 
-    public viewWidth: number;
-    public viewHeight: number;
-    public playImageHeight: number;
+    public viewWidth: number = 0;
+    public viewHeight: number = 0;
+    public playImageHeight: number = 0;
 
-    public blockHeight: number;
-    public blockWidth: number;
+    public blockHeight: number = 0;
+    public blockWidth: number = 0;
 }
