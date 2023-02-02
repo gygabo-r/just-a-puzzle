@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import './CutSelection.css';
 import { CutOption } from '../interfaces/CutOption';
+import useCuts from './useCuts';
 
 type Props = {
     image: string;
@@ -10,28 +11,9 @@ type Props = {
     onStartPlay: () => void;
 };
 
-const cutArray = [2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 export const CutSelection: React.FC<Props> = (p) => {
     const { image, onCutChange, selectedCut, onStartPlay, onCancel } = p;
-
-    const cuts: CutOption[] = useMemo(() => {
-        const imgElement = new Image();
-        imgElement.src = image;
-        return cutArray.map((cutY) => {
-            const height = Math.floor(imgElement.height / cutY);
-            const width = Math.floor(height / 5) * 6;
-            const lowerCutX = Math.floor(imgElement.width / width);
-            const upperCutX = lowerCutX + 1;
-            const lowerDiff = imgElement.width - width * lowerCutX;
-            const upperDiff = width * upperCutX - imgElement.width;
-
-            return lowerDiff < upperDiff ? { x: lowerCutX, y: cutY } : { x: upperCutX, y: cutY };
-        });
-    }, [image]);
-
-    console.log(cuts);
-
+    const cuts = useCuts(image);
     return (
         <div className="cut-selection-container">
             <div className="image-container">
@@ -39,16 +21,7 @@ export const CutSelection: React.FC<Props> = (p) => {
             </div>
             <div className="cuts-container">
                 {cuts.map((cut) => (
-                    <label className="cut-label" key={JSON.stringify(cut)}>
-                        <input
-                            type="radio"
-                            name="cut-option"
-                            id={`${cut.x} x ${cut.y}`}
-                            checked={selectedCut?.x === cut.x && selectedCut?.y === cut.y}
-                            onChange={() => onCutChange(cut)}
-                        />
-                        {`${cut.x} x ${cut.y}`}
-                    </label>
+                    <Option key={JSON.stringify(cut)} cut={cut} onCutChange={onCutChange} selectedCut={selectedCut} />
                 ))}
             </div>
             <div className="cut-actions">
@@ -58,5 +31,22 @@ export const CutSelection: React.FC<Props> = (p) => {
                 </button>
             </div>
         </div>
+    );
+};
+
+const Option: React.FC<{ cut: CutOption; selectedCut?: CutOption; onCutChange: (c: CutOption) => void }> = (p) => {
+    const { cut, onCutChange, selectedCut } = p;
+
+    return (
+        <label className="cut-label">
+            <input
+                type="radio"
+                name="cut-option"
+                id={`${cut.x} x ${cut.y}`}
+                checked={selectedCut?.x === cut.x && selectedCut?.y === cut.y}
+                onChange={() => onCutChange(cut)}
+            />
+            {`${cut.x} x ${cut.y}`}
+        </label>
     );
 };
