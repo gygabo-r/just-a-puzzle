@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { CutOption } from './interfaces/CutOption';
 import { ImageUploader } from './cut-selection/ImageUploader';
 import { CutSelection } from './cut-selection/CutSelection';
+import Play from './play/Play';
 
 type State = 'upload' | 'cut-selection' | 'play';
 
@@ -36,7 +37,7 @@ const App = () => {
                     onStartPlay={handlePlay}
                 />
             )}
-            {/*{state === 'play' && !!selectedCut && <Play imageData={imageDataUrl} cut={selectedCut} />}*/}
+            {state === 'play' && !!selectedCut && <Play imageData={imageDataUrl} selectedCut={selectedCut} />}
         </div>
     );
 };

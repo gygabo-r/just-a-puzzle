@@ -17,7 +17,7 @@ export const CutSelection: React.FC<Props> = (p) => {
     return (
         <div className="cut-selection-container">
             <div className="image-container">
-                <img src={image} className="displayImage" alt="the selected one" />
+                <img src={image} alt="the selected one" />
             </div>
             <div className="cuts-container">
                 {cuts.map((cut) => (
