@@ -1,9 +1,7 @@
-import { LocalStorageService } from './local-storage.service';
 import { D3WrapperService } from './d3-wrapper.service';
 
 export class BackgroundBrightnessService {
     private step = 25;
-    // @ts-ignore
     private _brightness: number;
 
     public get brightness() {
@@ -15,9 +13,9 @@ export class BackgroundBrightnessService {
         this.d3Wrapper.changeBackgroundBrightness(this.backgroundColor);
     }
 
-    constructor(private localStorage: LocalStorageService, private d3Wrapper: D3WrapperService) {
-        const brightness = this.localStorage.getBrightness();
-        this.brightness = brightness > -1 && brightness < 251 ? brightness : 125;
+    constructor(private d3Wrapper: D3WrapperService) {
+        const brightness = this.loadBrightness();
+        this._brightness = brightness > -1 && brightness < 251 ? brightness : 125;
     }
 
     public get cantIncrease() {
@@ -33,14 +31,24 @@ export class BackgroundBrightnessService {
     public increase(): void {
         if (!this.cantIncrease) {
             this.brightness += this.step;
-            this.localStorage.setBrightness(this.brightness);
+            this.saveBrightness(this.brightness);
         }
     }
 
     public decrease(): void {
         if (!this.cantDecrease) {
             this.brightness -= this.step;
-            this.localStorage.setBrightness(this.brightness);
+            this.saveBrightness(this.brightness);
         }
+    }
+
+    private saveBrightness(value: number): void {
+        window.localStorage.setItem('just-a-puzzle-brightness', value.toString(10));
+    }
+
+    private loadBrightness(): number {
+        const value = window.localStorage.getItem('just-a-puzzle-brightness');
+        if (value !== null && value !== undefined && value !== '') return Number(value);
+        else return -1;
     }
 }

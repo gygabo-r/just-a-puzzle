@@ -29,6 +29,7 @@ export class GameBuilder {
     public setViewHeight(): void {
         const element = document.getElementById(this.svgTargetId) as HTMLElement;
         const clientRect = element.getBoundingClientRect();
+        console.log(clientRect);
         this.config.playImageHeight = clientRect.height / 2;
         this.config.viewHeight = clientRect.height;
         this.config.viewWidth = clientRect.width;
