@@ -1,7 +1,6 @@
 .upload_button {
-    border: 1px solid red;
-    border-radius: 1rem ;
-    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 0.5rem ;
     cursor: pointer;
 }
 

@@ -27,16 +27,18 @@ export const ImageUploader: React.FC<Props> = (p) => {
 
     return (
         <div className="container centered">
-            <label htmlFor="upload-image" className="upload_label">
-                <input
-                    onChange={loadFile}
-                    id="upload-image"
-                    name="upload-image"
-                    type="file"
-                    style={{ display: 'none' }}
-                />
-                <span className="upload_button">Play with new image</span>
-            </label>
+            <button className="upload_button">
+                <label htmlFor="upload-image" className="upload_label">
+                    <input
+                        onChange={loadFile}
+                        id="upload-image"
+                        name="upload-image"
+                        type="file"
+                        style={{ display: 'none' }}
+                    />
+                    <span style={{ padding: '1rem', cursor: 'pointer' }}>Play with new image</span>
+                </label>
+            </button>
         </div>
     );
 };

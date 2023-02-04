@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { CutOption } from './interfaces/CutOption';
-import { ImageUploader } from './cut-selection/ImageUploader';
-import { CutSelection } from './cut-selection/CutSelection';
+import { ImageUploader } from './selection/ImageUploader';
+import { CutSelection } from './selection/CutSelection';
 import Play from './play/Play';
 
 type State = 'upload' | 'cut-selection' | 'play';

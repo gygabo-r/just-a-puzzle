@@ -46,7 +46,7 @@ const Option: React.FC<{ cut: CutOption; selectedCut?: CutOption; onCutChange: (
                 checked={selectedCut?.x === cut.x && selectedCut?.y === cut.y}
                 onChange={() => onCutChange(cut)}
             />
-            {`${cut.x} x ${cut.y}`}
+            {`${cut.x * cut.y}`}
         </label>
     );
 };
