@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/just-a-puzzle/static/css/main.e6001f50.css",
+    "main.js": "/just-a-puzzle/static/js/main.2a4e3608.js",
+    "index.html": "/just-a-puzzle/index.html",
+    "main.e6001f50.css.map": "/just-a-puzzle/static/css/main.e6001f50.css.map",
+    "main.2a4e3608.js.map": "/just-a-puzzle/static/js/main.2a4e3608.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6001f50.css",
+    "static/js/main.2a4e3608.js"
+  ]
+}
